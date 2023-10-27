@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+        <link href="{% static 'css/buttons.css' %}" rel="stylesheet">
+        <title>Sign In</title>
+    </head>
+    <body style="background-color: #161616;">
+        <div class="card">
+            <div class="card-body">
+                <form class="form-signin text-center" method="post">
+                    <img class="mb-4"
+                         src="{% static 'img/banner.png' %}"
+                         alt=""
+                         width="72"
+                         height="72">
+                    <img class="mb-4"
+                         src="{% static 'img/django.png' %}"
+                         alt=""
+                         width="72"
+                         height="72">
+                    <h1 class="h3 mb-3 font-weight-normal card-title">Sign in</h1>
+                    {% csrf_token %}
+                    <div class="form-group">{{ form.as_p }}</div>
+                    <button class="btn btn-lg btn-primary btn-block login" type="submit">Log In</button>
+                    <p class="mt-5 mb-3 text-muted">@ github.com/cross-codes</p>
+                </form>
+            </div>
+            <form method="get" action="{% url 'home' %}">
+                <button class="btn btn-success btn-block btn-lg home" type="submit">Return Home</button>
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/home.css' %}" rel="stylesheet">
+        <link href="{% static 'css/buttons.css' %}" rel="stylesheet">
+        <title>Home</title>
+    </head>
+    <body class="text-center" style="background-color: #161616;">
+        <div class="card" style="background-color: #161616">
+            <div class="card-body">
+                <div class="col-md-4 mx-auto">
+                    {% if user.is_authenticated %}
+                        <img class="mb-4"
+                             src="{% static 'img/banner.png' %}"
+                             alt=""
+                             width="72"
+                             height="72">
+                        <img class="mb-4"
+                             src="{% static 'img/django.png' %}"
+                             alt=""
+                             width="72"
+                             height="72">
+                        <h2 class="text-center mb-4" style="color: #FFFFFF;">Welcome {{ user.first_name }}</h2>
+                        {% load order_count %}
+                        <div class="card" style="background-color: #E7E7E7;">
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    <em>User Profile</em>
+                                </h3>
+                                <p>
+                                    <strong>Username:</strong> {{ user.username }}
+                                </p>
+                                <p>
+                                    <strong>First Name:</strong> {{ user.first_name }}
+                                </p>
+                                <p>
+                                    <strong>Last Name:</strong> {{ user.last_name }}
+                                </p>
+                                <p>
+                                    <strong>Email:</strong> {{ user.email }}
+                                </p>
+                                <p>
+                                    <strong>Order Count:</strong> {% user_order_count user %}
+                                </p>
+                            </div>
+                        </div>
+                        <br>
+                        <form method="post" action="{% url 'orders:order-list' %}">
+                            {% csrf_token %}
+                            <button class="btn btn-primary btn-block btn-lg" type="submit">View Order List</button>
+                        </form>
+                        <br>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button class="btn btn-danger btn-block btn-lg" type="submit">Log Out</button>
+                        </form>
+                    {% else %}
+                        <img class="mb-4"
+                             src="{% static 'img/banner.png' %}"
+                             alt=""
+                             width="72"
+                             height="72">
+                        <img class="mb-4"
+                             src="{% static 'img/django.png' %}"
+                             alt=""
+                             width="72"
+                             height="72">
+                        <div class="card text-center">
+                            <div class="card-body text-center">
+                                <p>Welcome to the Order Management System</p>
+                                <p>(GDSC - Round 2)</p>
+                            </div>
+                        </div>
+                        <form method="post" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            <button class="btn btn-primary btn-block btn-lg login" type="submit">Log In</button>
+                        </form>
+                        <br>
+                        <form method="post" action="{% url 'accounts:signup' %}">
+                            {% csrf_token %}
+                            <button class="btn btn-success btn-block btn-lg signup" type="submit">Sign Up</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <p class="mt-5 mb-3 text-muted">@ github.com/cross-codes</p>
+    </body>
+</html>

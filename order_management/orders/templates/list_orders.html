@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/list_orders.css' %}" rel="stylesheet">
+        <link href="{% static 'css/buttons.css' %}" rel="stylesheet">
+        <title>Your Orders</title>
+    </head>
+    <body style="background-color: #161616;">
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="text-center">
+                        <img class="mb-4"
+                             src="{% static 'img/banner.png' %}"
+                             alt=""
+                             width="72"
+                             height="72">
+                        <img class="mb-4"
+                             src="{% static 'img/django.png' %}"
+                             alt=""
+                             width="72"
+                             height="72">
+                    </div>
+                    <form method="get" action="{% url 'orders:order-list' %}">
+                        <div class="row justify-content-center" style="color: #FFFFFF">
+                            {{ search_form.as_p }}
+                            <div class="col-4">
+                                <button class="btn btn-primary btn-sm" type="submit">Fuzzy Search</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="container mt-2">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-4">
+                                <form method="get" action="{% url 'home' %}">
+                                    <button class="btn btn-secondary btn-block home" type="submit">Return to homepage</button>
+                                </form>
+                            </div>
+                            <div class="col-lg-4">
+                                <form method="post" action="{% url 'logout' %}">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger btn-block" type="submit">Logout</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card" style="background-color: #E7E7E7;">
+                        <div class="card-body">
+                            <h2 class="text-center">Your Orders</h2>
+                            <ul class="list-unstyled">
+                                {% for order in orders %}
+                                    <li>
+                                        <strong>Title:</strong> {{ order.title }}
+                                        <br>
+                                        <strong>Description:</strong> {{ order.desc }}
+                                        <br>
+                                        <strong>Date:</strong> {{ order.date }}
+                                        <br>
+                                        <strong>Priority Tag:</strong> {{ order.get_pr_tag_display }}
+                                        <br>
+                                        <div class="container mt-2">
+                                            <div class="row justify-content-center">
+                                                <div class="col-lg-4">
+                                                    <form method="post" action="{% url 'orders:update-order' order.id %}">
+                                                        {% csrf_token %}
+                                                        <button class="btn btn-primary btn-block mb-2" type="submit">Update Order</button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <form method="post" action="{% url 'orders:remove-order' order.id %}">
+                                                        {% csrf_token %}
+                                                        <button class="btn btn-danger btn-block mb-2" type="submit">Remove Order</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <hr>
+                                {% empty %}
+                                    <p>You have no orders</p>
+                                {% endfor %}
+                            </ul>
+                            <form method="get" action="{% url 'orders:create-order' %}">
+                                <button class="btn btn-success" type="submit">Add an order</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="mt-5 mb-3 text-muted text-center">@ github.com/cross-codes</p>
+    </body>
+</html>

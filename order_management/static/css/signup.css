@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "JuliaMono";
+  src: url("../fonts/JuliaMono-Regular.ttf") format("truetype");
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+}

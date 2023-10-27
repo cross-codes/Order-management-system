@@ -1,0 +1,13 @@
+@font-face {
+  font-family: "JuliaMono";
+  src: url("../fonts/JuliaMono-Regular.ttf") format("truetype");
+}
+
+body {
+  font-family: "JuliaMono", sans-serif;
+}
+
+.scrollable-content {
+  max-height: 700px;
+  overflow-y: auto;
+}
