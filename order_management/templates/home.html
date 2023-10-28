@@ -38,15 +38,21 @@
                                 <p>
                                     <strong>First Name:</strong> {{ user.first_name }}
                                 </p>
-                                <p>
-                                    <strong>Last Name:</strong> {{ user.last_name }}
-                                </p>
+                                {% if user.last_name %}
+                                    <p>
+                                        <strong>Last Name:</strong> {{ user.last_name }}
+                                    </p>
+                                {% endif %}
                                 <p>
                                     <strong>Email:</strong> {{ user.email }}
                                 </p>
                                 <p>
                                     <strong>Order Count:</strong> {% user_order_count user %}
                                 </p>
+                                <form method="get" action="{% url 'accounts:update_profile' user.id %}">
+                                    {% csrf_token %}
+                                    <button class="btn btn-primary btn-block btn-lg update_profile" type="submit">Update profile</button>
+                                </form>
                             </div>
                         </div>
                         <br>

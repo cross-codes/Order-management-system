@@ -1,14 +1,14 @@
 .login {
-  background-color: #006666;
+  background-color: #1e99ff;
   transition: background-color 0.3s;
 }
 
 .login:hover {
-  background-color: #008888;
+  background-color: #1e90ff;
 }
 
 .login:active {
-  background-color: #008888;
+  background-color: #0000cd;
 }
 
 .signup {
@@ -35,4 +35,17 @@
 
 .home:active {
   background-color: #ccffff;
+}
+
+.update_profile {
+  background-color: #eaa000;
+  transition: background-color 0.3s;
+}
+
+.update_profile:hover {
+  background-color: #ffa500;
+}
+
+.update_profile:active {
+  background-color: #ff6347;
 }

@@ -53,3 +53,9 @@ class UserCreationFormCustom(UserCreationForm):
             user.save()
 
         return user
+
+
+class UserUpdationForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "email"]

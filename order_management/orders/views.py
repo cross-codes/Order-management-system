@@ -26,16 +26,37 @@ def create_order(request):
 def list_orders(request):
     orders = Order.objects.filter(user=request.user)
     search_form = OrderSearchForm(request.GET)
+    fuzz_pratio_threshold = 75
 
     if search_form.is_valid():
         search_query = search_form.cleaned_data.get("search_query").lower()
+        priority = request.GET.get("priority")
         if search_query:
-            orders = [
-                order
-                for order in orders
-                if fuzz.partial_ratio(search_query, order.title.lower()) >= 75
-            ]
-            context = {"orders": orders, "search_form": search_form}
+            if priority in {"Low", "Medium", "High"}:
+                orders = [
+                    order
+                    for order in orders
+                    if order.pr_tag == priority.upper()
+                    and fuzz.partial_ratio(search_query, order.title.lower())
+                    >= fuzz_pratio_threshold
+                ]
+            else:
+                orders = sorted(
+                    [
+                        order
+                        for order in orders
+                        if fuzz.partial_ratio(search_query, order.title.lower())
+                        >= fuzz_pratio_threshold
+                    ],
+                    key=lambda order: {"LOW": 3, "MEDIUM": 2, "HIGH": 1}.get(
+                        order.pr_tag, 1
+                    ),
+                )
+
+            context = {
+                "orders": orders,
+                "search_form": search_form,
+            }
             return render(
                 request,
                 "search_results.html",

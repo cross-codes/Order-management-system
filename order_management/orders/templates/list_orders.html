@@ -30,12 +30,27 @@
                         <div class="row justify-content-center" style="color: #FFFFFF">
                             {{ search_form.as_p }}
                             <div class="col-4">
+                                <select class="form-select" name="priority">
+                                    <option value="" selected>Search by priority (Default: All)</option>
+                                    <option value="Default">All matches (High -> Low)</option>
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                </select>
+                            </div>
+                            <div class="col-4 text-center">
                                 <button class="btn btn-primary btn-sm" type="submit">Fuzzy Search</button>
                             </div>
                         </div>
+                        <br>
                     </form>
                     <div class="container mt-2">
                         <div class="row justify-content-center">
+                            <div class="col-lg-4">
+                                <form method="get" action="{% url 'orders:create-order' %}">
+                                    <button class="btn btn-success" type="submit">Add order to the list</button>
+                                </form>
+                            </div>
                             <div class="col-lg-4">
                                 <form method="get" action="{% url 'home' %}">
                                     <button class="btn btn-secondary btn-block home" type="submit">Return to homepage</button>
@@ -86,9 +101,6 @@
                                     <p>You have no orders</p>
                                 {% endfor %}
                             </ul>
-                            <form method="get" action="{% url 'orders:create-order' %}">
-                                <button class="btn btn-success" type="submit">Add an order</button>
-                            </form>
                         </div>
                     </div>
                 </div>
