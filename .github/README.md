@@ -1,5 +1,5 @@
 <div align="center">
-<h1>Order Management System v1.1</h1>
+<h1>📦 Order Management System v1.1</h1>
 
 An order management web application that handles order creation and updation per
 user, made using [Django](https://www.djangoproject.com/) and [Bootstrap](https://getbootstrap.com/)
@@ -114,4 +114,5 @@ User updation form:
 Project started on: 23/10/2023
 
 (v1.0) First functional version completed on: 27/10/2023
+
 (v1.1) New features added on: 28/10/2023
